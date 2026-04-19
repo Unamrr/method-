@@ -4,8 +4,24 @@
 
 using namespace std;
 
-void solveQuadratic(double a, double b, double c) {//решаем квадратное уравн
-    // Проверка на вырожденные случаи
+void kvadr_ur(double a, double b, double c) {//решаем квадратное уравн
+    const double EPS = 1e-12;  // машинный ноль
+
+    if (fabs(a) < EPS && fabs(b) < EPS && fabs(c) < EPS) {
+        cout << "бесконечно много корней" << endl;
+        return;
+    }
+    if (fabs(a) < EPS && fabs(b) < EPS && fabs(c) > EPS) {
+        cout << "Нет корней" << endl;
+        return;
+    }
+    if (fabs(a) < EPS) {
+        double x = -c / b;
+        cout << "Линейное уравнение, корень: x = " << x << endl;
+        return;
+    }
+    
+    /*// Проверка на вырожденные случаи
     if (a == 0 && b == 0 && c == 0) { // если все 0 т оподходит любое число бесконечно много корней
         cout << "бесконечно много корней" << endl;
         return;
@@ -20,12 +36,12 @@ void solveQuadratic(double a, double b, double c) {//решаем квадрат
         cout << "Линейное уравнение, корень: x = " << x << endl;
         return;
     }
-
+    */
     // проверка  на переполнение/ защита, если числа больше 1е100 то есть риск переполнения
     const double MAX_VAL = 1e100;// это большое число но риск меньше что при бв  квадрате вызовет переполнение
     if (fabs(a) > MAX_VAL || fabs(b) > MAX_VAL || fabs(c) > MAX_VAL) { // ну и если число больше максимального то масштабираем
         // Нормализация: делим всё на максимальный коэффициент
-        double maxCoeff = max(fabs(a), max(fabs(b), fabs(c)));//мы делим чтобы огромные числа превратить в малые, не меняя корни уравнения
+        double maxCoeff = max(fabs(a), max(fabs(b), fabs(c)));// мы делим чтобы огромные числа превратить в малые, не меняя корни уравнения
         a /= maxCoeff;
         b /= maxCoeff;
         c /= maxCoeff;
@@ -37,11 +53,11 @@ void solveQuadratic(double a, double b, double c) {//решаем квадрат
 
     if (D < 0) {
         // Комплексные корни
-        double realPart = -b / (2 * a);
-        double imagPart = sqrt(-D) / (2 * a);
+        double deystvPart = -b / (2 * a);
+        double mnimPart = sqrt(-D) / (2 * a);
         cout << "Комплексные корни:" << endl;
-        cout << "x1 = " << realPart << " + " << imagPart << "i" << endl;
-        cout << "x2 = " << realPart << " - " << imagPart << "i" << endl;
+        cout << "x1 = " << deystvPart << " + " << mnimPart << "i" << endl;
+        cout << "x2 = " << deystvPart << " - " << mnimPart << "i" << endl;
         return;
     }
 
@@ -50,7 +66,7 @@ void solveQuadratic(double a, double b, double c) {//решаем квадрат
     double x1, x2;
 
     //  используем знак b для избежания потери точности
-  //Чтобы избежать катастрофической потери точности — когда вычитаются два очень близких числа.
+  //Чтобы избежать катастрофической потери точности — когда вычитаются два очень близких числа. (типа складываются и так и так) убираем вычитание
     if (b >= 0) {
         x1 = (-b - sqrtD) / (2 * a);
     }
@@ -70,7 +86,7 @@ void solveQuadratic(double a, double b, double c) {//решаем квадрат
     cout << "x2 = " << x2 << endl;
 
     // Проверка точности (обратная подстановка) 
-  /*если погрешность близка к нулю → алгоритм работает хорошо. Если большая → где-то ошибка.*/
+  /*если погрешность близка к нулю  алгоритм работает хорошо. Если большая  где-то ошибка.*/
     double check1 = a * x1 * x1 + b * x1 + c;
     double check2 = a * x2 * x2 + b * x2 + c;
     cout << "Погрешность: |f(x1)| = " << fabs(check1) << ", |f(x2)| = " << fabs(check2) << endl;
@@ -78,13 +94,13 @@ void solveQuadratic(double a, double b, double c) {//решаем квадрат
 
 int main() {
     setlocale(LC_ALL, "ru");
-    cout << "=== Решение квадратного уравнения ax^2 + bx + c = 0 ===" << endl;
+    cout << " Решение квадратного уравнения ax ^ 2 + bx + c = 0 = " << endl;
     cout << "Введите a, b, c через пробел: ";
 
     double a, b, c;
     cin >> a >> b >> c;
 
-    solveQuadratic(a, b, c);
+    kvadr_ur(a, b, c);
 
     return 0;
 }
