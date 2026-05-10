@@ -14,7 +14,7 @@ bool tridiagonal_solve(const double alpha[], const double beta[], const double g
     // ----- ПРЯМАЯ ПРОГОНКА -----
     // Начальные значения c[2] и d[2] (в индексации методички)
     // В коде: c[2] соответствует i=2, используем сдвиг индексов
-    if (fabs(beta[0]) < 1e-12) {
+    if (fabs(beta[0]) < 1e-12) {//по формуле на 0 делить нельзя так что проверяем
         cout << "Ошибка: beta[1] = 0!" << endl;
         delete[] c; delete[] d;
         return false;
@@ -25,7 +25,7 @@ bool tridiagonal_solve(const double alpha[], const double beta[], const double g
 
     // Вычисляем c[i+1] и d[i+1] для i = 2, 3, 4 (до n-1)
     for (int i = 2; i <= n - 1; i++) {
-        double znamenatel = alpha[i - 2] * c[i] + beta[i - 1];  // αi*ci + βi  (исправлено: alpha[i-2])
+        double znamenatel = alpha[i - 2] * c[i] + beta[i - 1];  // αi*ci + βi  нам надо взять альфа 2 а это в 0 индексе так что минус 2
         if (fabs(znamenatel) < 1e-12) {
             cout << "Ошибка: деление на ноль!" << endl;
             delete[] c; delete[] d;
