@@ -1,0 +1,62 @@
+// ПРОВЕРКА: подставляем x в каждое уравнение
+cout << "\n===== ПРОВЕРКА ПОДСТАНОВКОЙ =====" << endl;
+
+double eq1, eq2, eq3, eq4, eq5;
+
+// Уравнение 1: x1 + 3*x2 = 5
+eq1 = x[0] + 3 * x[1];
+cout << "Ур1: " << eq1 << " = 5  (разница: " << fabs(eq1 - 5) << ")" << endl;
+
+// Уравнение 2: -2*x1 + 4*x2 - x3 = 1
+eq2 = -2 * x[0] + 4 * x[1] - x[2];
+cout << "Ур2: " << eq2 << " = 1  (разница: " << fabs(eq2 - 1) << ")" << endl;
+
+// Уравнение 3: 2*x2 - 2*x3 + x4 = 3
+eq3 = 2 * x[1] - 2 * x[2] + x[3];
+cout << "Ур3: " << eq3 << " = 3  (разница: " << fabs(eq3 - 3) << ")" << endl;
+
+// Уравнение 4: x3 + x4 + x5 = -2
+eq4 = x[2] + x[3] + x[4];
+cout << "Ур4: " << eq4 << " = -2 (разница: " << fabs(eq4 + 2) << ")" << endl;
+
+// Уравнение 5: 3*x4 - x5 = -1
+eq5 = 3 * x[3] - x[4];
+cout << "Ур5: " << eq5 << " = -1 (разница: " << fabs(eq5 + 1) << ")" << endl;// ПРОВЕРКА: подставляем x в каждое уравнение и считаем невязку
+cout << "\n===== ПРОВЕРКА ПОДСТАНОВКОЙ =====" << endl;
+
+double eq1, eq2, eq3, eq4, eq5;
+double max_residual = 0.0;  // это и будет невязка
+
+// Уравнение 1: x1 + 3*x2 = 5
+eq1 = x[0] + 3 * x[1];
+double diff1 = fabs(eq1 - 5);
+if (diff1 > max_residual) max_residual = diff1;
+cout << "Ур1: " << eq1 << " = 5  (разница: " << diff1 << ")" << endl;
+
+// Уравнение 2: -2*x1 + 4*x2 - x3 = 1
+eq2 = -2 * x[0] + 4 * x[1] - x[2];
+double diff2 = fabs(eq2 - 1);
+if (diff2 > max_residual) max_residual = diff2;
+cout << "Ур2: " << eq2 << " = 1  (разница: " << diff2 << ")" << endl;
+
+// Уравнение 3: 2*x2 - 2*x3 + x4 = 3
+eq3 = 2 * x[1] - 2 * x[2] + x[3];
+double diff3 = fabs(eq3 - 3);
+if (diff3 > max_residual) max_residual = diff3;
+cout << "Ур3: " << eq3 << " = 3  (разница: " << diff3 << ")" << endl;
+
+// Уравнение 4: x3 + x4 + x5 = -2
+eq4 = x[2] + x[3] + x[4];
+double diff4 = fabs(eq4 + 2);  // +2 потому что переносим -2
+if (diff4 > max_residual) max_residual = diff4;
+cout << "Ур4: " << eq4 << " = -2 (разница: " << diff4 << ")" << endl;
+
+// Уравнение 5: 3*x4 - x5 = -1
+eq5 = 3 * x[3] - x[4];
+double diff5 = fabs(eq5 + 1);  // +1 потому что переносим -1
+if (diff5 > max_residual) max_residual = diff5;
+cout << "Ур5: " << eq5 << " = -1 (разница: " << diff5 << ")" << endl;
+
+// ВЫВОД НЕВЯЗКИ (максимальная разница)
+cout << "\n===== НЕВЯЗКА =====" << endl;
+cout << "|Ax - b| = " << max_residual << endl;
